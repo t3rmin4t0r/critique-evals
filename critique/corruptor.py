@@ -3,17 +3,21 @@
 import random
 
 
-def corrupt_sql(sql: str, corruption_type: str = "random") -> str:
+def corrupt_sql(sql: str, corruption_type: str = "random", rng: random.Random | None = None) -> str:
     """
     Introduce intentional bugs into SQL code.
 
     Args:
         sql: The SQL query to corrupt
         corruption_type: Type of corruption - "random", "join", "group", "date", "all"
+        rng: Random number generator for reproducibility (default: create with seed 42)
 
     Returns:
         Corrupted SQL query with intentional bugs
     """
+    if rng is None:
+        rng = random.Random(42)
+
     if corruption_type == "all":
         # Apply all three errors
         sql = _corrupt_join(sql)
@@ -28,8 +32,8 @@ def corrupt_sql(sql: str, corruption_type: str = "random") -> str:
     elif corruption_type == "random":
         # Pick a random corruption
         corruption_types = ["join", "group", "date"]
-        chosen = random.choice(corruption_types)
-        sql = corrupt_sql(sql, chosen)
+        chosen = rng.choice(corruption_types)
+        sql = corrupt_sql(sql, chosen, rng)
 
     return sql
 

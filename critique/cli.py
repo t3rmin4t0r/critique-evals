@@ -3,6 +3,7 @@
 import argparse
 import json
 import logging
+import random
 import time
 from collections import defaultdict
 from datetime import datetime
@@ -167,6 +168,7 @@ def main() -> None:
     parser.add_argument("--critic-model", default="", help="Override critic model")
     parser.add_argument("--iterations", "-n", type=int, default=1, help="Iterations (repeat coder and critic runs)")
     parser.add_argument("--corrupt", choices=["random", "join", "group", "date", "all"], help="Corrupt coder output before critique (for testing critic reliability)")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducible corruption (default: 42)")
     parser.add_argument("--output-root", "-o", default="output", help="Output directory")
     parser.add_argument("--list", action="store_true", help="List available test cases")
     parser.add_argument("--debug", action="store_true", help="Enable debug output")
@@ -197,6 +199,9 @@ def main() -> None:
     base_dir = Path.cwd()
     all_records: list[PairEvalRecord] = []
     testcase = get_testcase(args.testcase)
+
+    # Set up RNG for reproducible corruption
+    corruption_rng = random.Random(args.seed) if args.corrupt else None
 
     # Phase 1: Run all coders and save outputs
     print("\n" + "=" * 80)
@@ -245,10 +250,10 @@ def main() -> None:
 
                 # Apply corruption if requested
                 critic_code_input = code_output
-                if args.corrupt:
-                    critic_code_input = corrupt_sql(code_output, args.corrupt)
+                if args.corrupt and corruption_rng:
+                    critic_code_input = corrupt_sql(code_output, args.corrupt, corruption_rng)
                     if critic_run_idx == 0:  # Print corruption notice once per coder output
-                        print(f"\n[CORRUPTED with {args.corrupt} error]")
+                        print(f"\n[CORRUPTED with {args.corrupt} error (seed={args.seed})]")
 
                 # Run critic on the coder's output
                 _, critic_runner = create_runner("gpt", critic_prov)  # coder provider doesn't matter
@@ -305,6 +310,7 @@ def main() -> None:
                     "critic_run": critic_run_idx,
                     "corrupted": args.corrupt is not None,
                     "corruption_type": args.corrupt,
+                    "corruption_seed": args.seed if args.corrupt else None,
                 }
                 if critic_response:
                     record_dict["critic"] = {
