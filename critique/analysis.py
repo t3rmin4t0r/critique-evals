@@ -310,16 +310,22 @@ def analyze_critic_inconsistency(output_root: Path, testcase: str) -> None:
 
 def print_final_report(output_root: Path, testcase: str) -> None:
     """Print a comprehensive final evaluation report."""
+    try:
+        from tabulate import tabulate
+    except ImportError:
+        print("Install tabulate for better report formatting: pip install tabulate")
+        return
+
     testcase_dir = output_root / testcase
 
     if not testcase_dir.exists():
         return
 
-    print("\n\n" + "█" * 80)
-    print("█" + " " * 78 + "█")
-    print("█" + "FINAL EVALUATION REPORT".center(78) + "█")
-    print("█" + " " * 78 + "█")
-    print("█" * 80)
+    print("\n\n" + "=" * 80)
+    print("|" + " " * 78 + "|")
+    print("|" + "FINAL EVALUATION REPORT".center(78) + "|")
+    print("|" + " " * 78 + "|")
+    print("=" * 80)
 
     # Collect all data
     all_critiques: dict[tuple[str, str], list[CritiqueScore]] = defaultdict(list)
@@ -355,8 +361,11 @@ def print_final_report(output_root: Path, testcase: str) -> None:
                     all_critiques[(coder, critic)].append(score)
 
     # Key metrics section
-    print("\n" + "█ KEY METRICS".ljust(80, "─"))
-    print("█")
+    print("\n" + "|" + " KEY METRICS ".ljust(79, "-"))
+    print("|")
+
+    metrics_rows = []
+    agreement_rate = None
 
     # Critic agreement rates
     if all_critiques:
@@ -371,7 +380,6 @@ def print_final_report(output_root: Path, testcase: str) -> None:
             for critic in critics:
                 key = (coder, critic)
                 if key in all_critiques and all_critiques[key]:
-                    # Use first assessment as representative
                     critic_sentiments[critic] = all_critiques[key][0].sentiment
 
             if len(critic_sentiments) == 2:
@@ -382,18 +390,12 @@ def print_final_report(output_root: Path, testcase: str) -> None:
 
         if total_pairs > 0:
             agreement_rate = agree_count / total_pairs
-            print(f"█ Critic Agreement Rate:        {agreement_rate:.1%} ({agree_count}/{total_pairs} coders)")
-            if agreement_rate >= 0.8:
-                print("█   → CONSISTENT: Critics largely agree")
-            elif agreement_rate >= 0.5:
-                print("█   → MODERATE: Critics have mixed views")
-            else:
-                print("█   → INCONSISTENT: Critics disagree significantly")
-        print("█")
+            label = "CONSISTENT" if agreement_rate >= 0.8 else "MODERATE" if agreement_rate >= 0.5 else "INCONSISTENT"
+            metrics_rows.append(["Critic Agreement", f"{agreement_rate:.1%}", f"{agree_count}/{total_pairs}", label])
 
     # Coder consistency
+    coder_consistency_rates = {}
     if all_codes:
-        coder_consistency_rates = {}
         for coder, codes in all_codes.items():
             if len(codes) > 1:
                 similarities = []
@@ -403,18 +405,13 @@ def print_final_report(output_root: Path, testcase: str) -> None:
                         similarities.append(sim)
                 avg_sim = sum(similarities) / len(similarities) if similarities else 0
                 coder_consistency_rates[coder] = avg_sim
-                print(f"█ {coder.upper()} Code Consistency:   {avg_sim:.1%} similarity across runs")
+                label = "STABLE" if avg_sim >= 0.85 else "VARIABLE" if avg_sim >= 0.70 else "UNSTABLE"
+                metrics_rows.append([f"{coder.upper()} Code", f"{avg_sim:.1%}", f"{len(codes)} runs", label])
 
         if coder_consistency_rates:
             avg_consistency = sum(coder_consistency_rates.values()) / len(coder_consistency_rates)
-            print(f"█ Average Code Consistency:    {avg_consistency:.1%}")
-            if avg_consistency >= 0.85:
-                print("█   → STABLE: Coders produce consistent outputs")
-            elif avg_consistency >= 0.70:
-                print("█   → VARIABLE: Coders show some variation")
-            else:
-                print("█   → UNSTABLE: Coders vary significantly")
-            print("█")
+            label = "STABLE" if avg_consistency >= 0.85 else "VARIABLE" if avg_consistency >= 0.70 else "UNSTABLE"
+            metrics_rows.append(["Avg Code Consistency", f"{avg_consistency:.1%}", "", label])
 
     # Critic stability
     critic_stability_rates = {}
@@ -428,34 +425,28 @@ def print_final_report(output_root: Path, testcase: str) -> None:
             flip_rate = flips / (len(assessments) * (len(assessments) - 1) / 2)
             consistency = 1 - flip_rate
             critic_stability_rates[(coder, critic)] = consistency
+            label = "RELIABLE" if consistency >= 0.90 else "MODERATE" if consistency >= 0.70 else "UNRELIABLE"
+            metrics_rows.append([f"{coder.upper()}→{critic.upper()}", f"{consistency:.1%}", f"{len(assessments)} evals", label])
 
-    if critic_stability_rates:
-        for (coder, critic), consistency in sorted(critic_stability_rates.items()):
-            print(f"█ {coder.upper()}→{critic.upper()} Consistency:     {consistency:.1%} stable assessments")
-        if critic_stability_rates:
-            avg_stability = sum(critic_stability_rates.values()) / len(critic_stability_rates)
-            print(f"█ Average Critic Stability:    {avg_stability:.1%}")
-            if avg_stability >= 0.90:
-                print("█   → RELIABLE: Critiques are stable and predictable")
-            elif avg_stability >= 0.70:
-                print("█   → MODERATE: Some variability in assessments")
-            else:
-                print("█   → UNRELIABLE: Assessments flip frequently")
-            print("█")
+    if metrics_rows:
+        table = tabulate(metrics_rows, headers=["Metric", "Value", "Sample", "Status"], tablefmt="plain")
+        for line in table.split("\n"):
+            print(f"| {line}")
+        print("|")
 
     # Recommendations
-    print("\n" + "█ RECOMMENDATIONS".ljust(80, "─"))
-    print("█")
+    print("\n" + "|" + " RECOMMENDATIONS ".ljust(79, "-"))
+    print("|")
 
     insights = []
 
     if agreement_rate and agreement_rate < 0.5:
         insights.append("Consider using multiple critics for validation")
 
-    if all_codes and any(c < 0.70 for c in coder_consistency_rates.values()):
+    if any(c < 0.70 for c in coder_consistency_rates.values()):
         insights.append("Coders show high variability - use multiple runs for robustness")
 
-    if critic_stability_rates and any(c < 0.80 for c in critic_stability_rates.values()):
+    if any(c < 0.80 for c in critic_stability_rates.values()):
         insights.append("Some critics are unstable - combine evaluations for reliability")
 
     if not insights:
@@ -463,8 +454,8 @@ def print_final_report(output_root: Path, testcase: str) -> None:
         insights.append("Results are reliable for decision-making")
 
     for i, insight in enumerate(insights, 1):
-        print(f"█ {i}. {insight}")
+        print(f"| {i}. {insight}")
 
-    print("█")
-    print("█" * 80)
+    print("|")
+    print("=" * 80)
     print()
