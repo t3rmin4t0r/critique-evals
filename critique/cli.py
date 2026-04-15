@@ -17,6 +17,7 @@ from critique.config import (
 from critique.models import PairEvalRecord
 from critique.runner import create_runner
 from critique.testcase import get_testcase, list_testcases
+from critique.analysis import build_disagreement_matrix
 
 
 def _run_single_old(config: PairRunConfig, run_dir: Path) -> PairEvalRecord:
@@ -319,6 +320,10 @@ def main() -> None:
             )
         with open(summary_path, "w") as f:
             json.dump(records_data, f, indent=2)
+
+        # Print disagreement matrix
+        output_root_path = Path(args.output_root)
+        build_disagreement_matrix(output_root_path, args.testcase)
 
 
 if __name__ == "__main__":
