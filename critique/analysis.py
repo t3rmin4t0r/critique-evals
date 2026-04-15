@@ -204,7 +204,7 @@ def analyze_coder_inconsistency(output_root: Path, testcase: str) -> None:
         run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
 
         for run_dir in run_dirs:
-            code_path = run_dir / "generated_code.py"
+            code_path = run_dir / "generated_code.sql"
             if code_path.exists():
                 with open(code_path) as f:
                     coder_codes[coder].append(f.read())
@@ -348,7 +348,7 @@ def print_final_report(output_root: Path, testcase: str) -> None:
         run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
         for run_dir in run_dirs:
             # Collect code
-            code_path = run_dir / "generated_code.py"
+            code_path = run_dir / "generated_code.sql"
             if code_path.exists():
                 with open(code_path) as f:
                     all_codes[coder].append(f.read())

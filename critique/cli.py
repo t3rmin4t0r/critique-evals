@@ -24,6 +24,7 @@ from critique.analysis import (
     analyze_critic_inconsistency,
     print_final_report,
 )
+from critique.corruptor import corrupt_sql
 
 
 def _run_single_old(config: PairRunConfig, run_dir: Path) -> PairEvalRecord:
@@ -165,6 +166,7 @@ def main() -> None:
     parser.add_argument("--coder-model", default="", help="Override coder model")
     parser.add_argument("--critic-model", default="", help="Override critic model")
     parser.add_argument("--iterations", "-n", type=int, default=1, help="Iterations (repeat coder and critic runs)")
+    parser.add_argument("--corrupt", choices=["random", "join", "group", "date", "all"], help="Corrupt coder output before critique (for testing critic reliability)")
     parser.add_argument("--output-root", "-o", default="output", help="Output directory")
     parser.add_argument("--list", action="store_true", help="List available test cases")
     parser.add_argument("--debug", action="store_true", help="Enable debug output")
@@ -241,13 +243,20 @@ def main() -> None:
                         print(f"  Critic run {critic_run_idx + 1}/{args.iterations}")
                     print(f"{'#' * 60}")
 
+                # Apply corruption if requested
+                critic_code_input = code_output
+                if args.corrupt:
+                    critic_code_input = corrupt_sql(code_output, args.corrupt)
+                    if critic_run_idx == 0:  # Print corruption notice once per coder output
+                        print(f"\n[CORRUPTED with {args.corrupt} error]")
+
                 # Run critic on the coder's output
                 _, critic_runner = create_runner("gpt", critic_prov)  # coder provider doesn't matter
 
                 print(f"\n--- Critic: {critic_prov} ({DEFAULT_MODELS[critic_prov]}) ---")
                 critic_response = critic_runner.critique_code(
                     DEFAULT_MODELS[critic_prov],
-                    code_output,
+                    critic_code_input,
                     task=args.testcase,
                     system_context=testcase.domain_context,
                 )
@@ -268,9 +277,15 @@ def main() -> None:
 
                 # Save outputs
                 run_dir.mkdir(parents=True, exist_ok=True)
-                code_path = run_dir / "generated_code.py"
+                code_path = run_dir / "generated_code.sql"
                 with open(code_path, "w") as f:
-                    f.write(code_output)
+                    f.write(critic_code_input)
+
+                # Save original code if corrupted
+                if args.corrupt:
+                    original_code_path = run_dir / "original_code.sql"
+                    with open(original_code_path, "w") as f:
+                        f.write(code_output)
 
                 critique_path = run_dir / "critique.md"
                 with open(critique_path, "w") as f:
@@ -288,6 +303,8 @@ def main() -> None:
                     "error": record.error,
                     "coder_run": coder_run_idx,
                     "critic_run": critic_run_idx,
+                    "corrupted": args.corrupt is not None,
+                    "corruption_type": args.corrupt,
                 }
                 if critic_response:
                     record_dict["critic"] = {
