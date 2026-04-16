@@ -190,8 +190,11 @@ def analyze_coder_inconsistency(output_root: Path, testcase: str) -> None:
     if not testcase_dir.exists():
         return
 
-    # Collect code outputs by coder
+    # Collect code outputs by coder.
+    # Deduplicate by coder_run index (same coder output is saved under every critic pair dir).
+    # Prefer original_code.sql (uncorrupted) when --corrupt was used.
     coder_codes: dict[str, list[str]] = defaultdict(list)
+    seen_coder_runs: dict[str, set[int]] = defaultdict(set)
 
     for pair_dir in testcase_dir.iterdir():
         if not pair_dir.is_dir() or pair_dir.name == "summary.json":
@@ -205,7 +208,21 @@ def analyze_coder_inconsistency(output_root: Path, testcase: str) -> None:
         run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
 
         for run_dir in run_dirs:
-            code_path = run_dir / "generated_code.sql"
+            record_path = run_dir / "run_record.json"
+            if record_path.exists():
+                with open(record_path) as f:
+                    record = json.load(f)
+                coder_run_idx = record.get("coder_run", 0)
+            else:
+                coder_run_idx = 0
+
+            if coder_run_idx in seen_coder_runs[coder]:
+                continue  # already collected this coder output from another critic pair dir
+            seen_coder_runs[coder].add(coder_run_idx)
+
+            # Prefer original (uncorrupted) code; fall back to generated_code.sql
+            original_path = run_dir / "original_code.sql"
+            code_path = original_path if original_path.exists() else run_dir / "generated_code.sql"
             if code_path.exists():
                 with open(code_path) as f:
                     coder_codes[coder].append(f.read())
@@ -245,8 +262,11 @@ def analyze_critic_inconsistency(output_root: Path, testcase: str) -> None:
     if not testcase_dir.exists():
         return
 
-    # Collect critiques by coder/critic pair, grouped by run
-    critic_assessments: dict[tuple[str, str], list[CritiqueScore]] = defaultdict(list)
+    # Collect critiques by (coder, critic) pair, grouped by coder_run index.
+    # Only compare critic runs that evaluated the same coder output — comparing critiques
+    # across different coder outputs is not a measure of critic inconsistency.
+    # Structure: {(coder, critic): {coder_run_idx: [CritiqueScore, ...]}}
+    critic_assessments: dict[tuple[str, str], dict[int, list[CritiqueScore]]] = defaultdict(lambda: defaultdict(list))
 
     for pair_dir in testcase_dir.iterdir():
         if not pair_dir.is_dir() or pair_dir.name == "summary.json":
@@ -262,48 +282,65 @@ def analyze_critic_inconsistency(output_root: Path, testcase: str) -> None:
             continue
         critic = critic_parts[0]
 
-        # Get all runs (sorted to maintain order)
         run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
 
         for run_dir in run_dirs:
+            record_path = run_dir / "run_record.json"
             critique_path = run_dir / "critique.md"
-            if critique_path.exists():
-                with open(critique_path) as f:
-                    score = _extract_score(f.read())
-                    critic_assessments[(coder, critic)].append(score)
+            if not critique_path.exists():
+                continue
 
-    # Find pairs with multiple critic runs
+            if record_path.exists():
+                with open(record_path) as f:
+                    record = json.load(f)
+                coder_run_idx = record.get("coder_run", 0)
+            else:
+                coder_run_idx = 0
+
+            with open(critique_path) as f:
+                score = _extract_score(f.read())
+            critic_assessments[(coder, critic)][coder_run_idx].append(score)
+
+    # Find pairs where any coder_run group has multiple critic runs
     pairs_with_repeats = {
-        key: assessments
-        for key, assessments in critic_assessments.items()
-        if len(assessments) > 1
+        key: groups
+        for key, groups in critic_assessments.items()
+        if any(len(scores) > 1 for scores in groups.values())
     }
 
     if not pairs_with_repeats:
-        return  # No repeated critic runs
+        return  # No repeated critic runs on the same coder output
 
     print("\n" + "=" * 80)
     print("CRITIC INCONSISTENCY ANALYSIS")
     print("=" * 80)
 
-    for (coder, critic), assessments in sorted(pairs_with_repeats.items()):
+    for (coder, critic), groups in sorted(pairs_with_repeats.items()):
         print(f"\n{coder.upper()} → {critic.upper()}")
         print("-" * 40)
 
-        # Check for sentiment flips
-        flips = 0
-        for i in range(len(assessments)):
-            for j in range(i + 1, len(assessments)):
-                sent_i = assessments[i].sentiment
-                sent_j = assessments[j].sentiment
-                print(f"  Run {i + 1} vs Run {j + 1}: {sent_i} vs {sent_j}", end="")
-                if _sentiment_flipped(sent_i, sent_j):
-                    print(" ✗ FLIPPED")
-                    flips += 1
-                else:
-                    print()
+        total_flips = 0
+        total_comparisons = 0
 
-        flip_rate = flips / (len(assessments) * (len(assessments) - 1) / 2) if len(assessments) > 1 else 0
+        for coder_run_idx, assessments in sorted(groups.items()):
+            if len(assessments) < 2:
+                continue
+            if len(groups) > 1:
+                print(f"  [Coder run {coder_run_idx + 1}]")
+
+            for i in range(len(assessments)):
+                for j in range(i + 1, len(assessments)):
+                    sent_i = assessments[i].sentiment
+                    sent_j = assessments[j].sentiment
+                    print(f"  Run {i + 1} vs Run {j + 1}: {sent_i} vs {sent_j}", end="")
+                    if _sentiment_flipped(sent_i, sent_j):
+                        print(" ✗ FLIPPED")
+                        total_flips += 1
+                    else:
+                        print()
+                    total_comparisons += 1
+
+        flip_rate = total_flips / total_comparisons if total_comparisons > 0 else 0
         print(f"\n  Flip rate: {flip_rate:.2%}")
         print(f"  Consistency: {(1 - flip_rate):.2%}")
     print("\n" + "=" * 80)
@@ -385,6 +422,84 @@ def analyze_critic_quality_on_corruption(output_root: Path, testcase: str) -> No
     print("\n" + "=" * 80)
 
 
+def analyze_ground_truth_acceptance(output_root: Path, testcase: str) -> None:
+    """Check if critics correctly accept verified ground truth SQL (false positive rate).
+
+    Critics should always return SATISFACTORY on ground truth SQL.
+    Any rejection is a false positive — the critic is penalizing correct code.
+    """
+    testcase_dir = output_root / testcase
+
+    if not testcase_dir.exists():
+        return
+
+    # Collect results from ground_truth_coder_*_critic/ dirs only
+    ground_truth_results: dict[str, list[bool]] = defaultdict(list)  # critic -> [accepted, ...]
+
+    for pair_dir in testcase_dir.iterdir():
+        if not pair_dir.is_dir():
+            continue
+
+        parts = pair_dir.name.split("_coder_")
+        if len(parts) != 2 or parts[0] != "ground_truth":
+            continue
+
+        critic_parts = parts[1].split("_critic")
+        if len(critic_parts) < 1:
+            continue
+        critic = critic_parts[0]
+
+        run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
+        for run_dir in run_dirs:
+            critique_path = run_dir / "critique.md"
+            if not critique_path.exists():
+                continue
+
+            with open(critique_path) as f:
+                critique_text = f.read().lower()
+
+            # Determine acceptance: rejected if negative indicators present
+            rejected = any(word in critique_text for word in [
+                "unsatisfactory", "incorrect", "wrong", "error", "issue", "problem", "invalid"
+            ])
+            accepted = not rejected and any(word in critique_text for word in [
+                "satisfactory", "correct", "valid", "proper", "excellent", "good"
+            ])
+            # Edge case: neither clear signal — treat as accepted (benefit of doubt for GT)
+            if not rejected and not accepted:
+                accepted = True
+            ground_truth_results[critic].append(accepted)
+
+    if not ground_truth_results:
+        return
+
+    print("\n" + "=" * 80)
+    print("GROUND TRUTH FALSE POSITIVE ANALYSIS")
+    print("=" * 80)
+    print("\n(Rejecting ground truth SQL = false positive — critic penalizing correct code)")
+    print()
+
+    all_ok = True
+    for critic in sorted(ground_truth_results.keys()):
+        results = ground_truth_results[critic]
+        acceptance_rate = sum(results) / len(results) if results else 0
+        false_positive_rate = 1 - acceptance_rate
+        if false_positive_rate > 0:
+            status = "⚠️  FALSE POSITIVES" if false_positive_rate < 0.5 else "🚨 UNRELIABLE"
+            all_ok = False
+        else:
+            status = "✓ CLEAN"
+        n_accepted = sum(results)
+        n_total = len(results)
+        print(f"  {critic.upper()} critic: accepted {n_accepted}/{n_total} — "
+              f"false positive rate {false_positive_rate:.0%}  {status}")
+
+    if all_ok:
+        print("  All critics correctly accepted ground truth SQL — no false positives.")
+
+    print("\n" + "=" * 80)
+
+
 def print_final_report(output_root: Path, testcase: str) -> None:
     """Print a comprehensive final evaluation report."""
     try:
@@ -404,9 +519,12 @@ def print_final_report(output_root: Path, testcase: str) -> None:
     print("|" + " " * 78 + "|")
     print("=" * 80)
 
-    # Collect all data
-    all_critiques: dict[tuple[str, str], list[CritiqueScore]] = defaultdict(list)
+    # Collect all data — apply same dedup/grouping fixes as the standalone analysis functions.
+    # Critiques grouped by coder_run so stability is computed on same-input comparisons only.
+    # Codes deduplicated by coder_run; prefer original_code.sql over corrupted generated_code.sql.
+    all_critiques: dict[tuple[str, str], dict[int, list[CritiqueScore]]] = defaultdict(lambda: defaultdict(list))
     all_codes: dict[str, list[str]] = defaultdict(list)
+    seen_code_runs: dict[str, set[int]] = defaultdict(set)
 
     for pair_dir in testcase_dir.iterdir():
         if not pair_dir.is_dir() or pair_dir.name == "summary.json":
@@ -424,18 +542,29 @@ def print_final_report(output_root: Path, testcase: str) -> None:
 
         run_dirs = sorted([d for d in pair_dir.iterdir() if d.is_dir()])
         for run_dir in run_dirs:
-            # Collect code
-            code_path = run_dir / "generated_code.sql"
-            if code_path.exists():
-                with open(code_path) as f:
-                    all_codes[coder].append(f.read())
+            record_path = run_dir / "run_record.json"
+            if record_path.exists():
+                with open(record_path) as f:
+                    record = json.load(f)
+                coder_run_idx = record.get("coder_run", 0)
+            else:
+                coder_run_idx = 0
 
-            # Collect critique
+            # Collect code once per unique coder output
+            if coder_run_idx not in seen_code_runs[coder]:
+                seen_code_runs[coder].add(coder_run_idx)
+                original_path = run_dir / "original_code.sql"
+                code_path = original_path if original_path.exists() else run_dir / "generated_code.sql"
+                if code_path.exists():
+                    with open(code_path) as f:
+                        all_codes[coder].append(f.read())
+
+            # Collect critique grouped by coder_run
             critique_path = run_dir / "critique.md"
             if critique_path.exists():
                 with open(critique_path) as f:
                     score = _extract_score(f.read())
-                    all_critiques[(coder, critic)].append(score)
+                    all_critiques[(coder, critic)][coder_run_idx].append(score)
 
     # Key metrics section
     print("\n" + "|" + " KEY METRICS ".ljust(79, "-"))
@@ -444,7 +573,8 @@ def print_final_report(output_root: Path, testcase: str) -> None:
     metrics_rows = []
     agreement_rate = None
 
-    # Critic agreement rates
+    # Critic agreement rates — compare per coder_run so we're asking "do both critics agree
+    # on the same code?" rather than mixing critiques of different coder outputs.
     if all_critiques:
         coders = sorted(set(coder for coder, _ in all_critiques.keys()))
         critics = sorted(set(critic for _, critic in all_critiques.keys()))
@@ -453,17 +583,24 @@ def print_final_report(output_root: Path, testcase: str) -> None:
         total_pairs = 0
 
         for coder in coders:
-            critic_sentiments = {}
+            # Get all coder_run indices seen by any critic for this coder
+            all_run_indices: set[int] = set()
             for critic in critics:
-                key = (coder, critic)
-                if key in all_critiques and all_critiques[key]:
-                    critic_sentiments[critic] = all_critiques[key][0].sentiment
+                all_run_indices.update(all_critiques.get((coder, critic), {}).keys())
 
-            if len(critic_sentiments) == 2:
-                sentiments = list(critic_sentiments.values())
-                if sentiments[0] == sentiments[1]:
-                    agree_count += 1
-                total_pairs += 1
+            for run_idx in sorted(all_run_indices):
+                critic_sentiments = {}
+                for critic in critics:
+                    scores = all_critiques.get((coder, critic), {}).get(run_idx, [])
+                    if scores:
+                        # Use first critic run's sentiment for this coder output
+                        critic_sentiments[critic] = scores[0].sentiment
+
+                if len(critic_sentiments) == 2:
+                    sentiments = list(critic_sentiments.values())
+                    if sentiments[0] == sentiments[1]:
+                        agree_count += 1
+                    total_pairs += 1
 
         if total_pairs > 0:
             agreement_rate = agree_count / total_pairs
@@ -490,20 +627,29 @@ def print_final_report(output_root: Path, testcase: str) -> None:
             label = "STABLE" if avg_consistency >= 0.85 else "VARIABLE" if avg_consistency >= 0.70 else "UNSTABLE"
             metrics_rows.append(["Avg Code Consistency", f"{avg_consistency:.1%}", "", label])
 
-    # Critic stability
+    # Critic stability — only compare runs within the same coder_run group so we measure
+    # whether the critic gives consistent verdicts on the same input, not different inputs.
     critic_stability_rates = {}
-    for (coder, critic), assessments in all_critiques.items():
-        if len(assessments) > 1:
-            flips = 0
-            for i in range(len(assessments)):
-                for j in range(i + 1, len(assessments)):
-                    if _sentiment_flipped(assessments[i].sentiment, assessments[j].sentiment):
-                        flips += 1
-            flip_rate = flips / (len(assessments) * (len(assessments) - 1) / 2)
+    for (coder, critic), groups in all_critiques.items():
+        total_flips = 0
+        total_comparisons = 0
+        total_evals = sum(len(scores) for scores in groups.values())
+
+        for run_scores in groups.values():
+            if len(run_scores) < 2:
+                continue
+            for i in range(len(run_scores)):
+                for j in range(i + 1, len(run_scores)):
+                    if _sentiment_flipped(run_scores[i].sentiment, run_scores[j].sentiment):
+                        total_flips += 1
+                    total_comparisons += 1
+
+        if total_comparisons > 0:
+            flip_rate = total_flips / total_comparisons
             consistency = 1 - flip_rate
             critic_stability_rates[(coder, critic)] = consistency
             label = "RELIABLE" if consistency >= 0.90 else "MODERATE" if consistency >= 0.70 else "UNRELIABLE"
-            metrics_rows.append([f"{coder.upper()}→{critic.upper()}", f"{consistency:.1%}", f"{len(assessments)} evals", label])
+            metrics_rows.append([f"{coder.upper()}→{critic.upper()}", f"{consistency:.1%}", f"{total_evals} evals", label])
 
     if metrics_rows:
         table = tabulate(metrics_rows, headers=["Metric", "Value", "Sample", "Status"], tablefmt="plain")
@@ -517,7 +663,7 @@ def print_final_report(output_root: Path, testcase: str) -> None:
 
     insights = []
 
-    if agreement_rate and agreement_rate < 0.5:
+    if agreement_rate is not None and agreement_rate < 0.5:
         insights.append("Consider using multiple critics for validation")
 
     if any(c < 0.70 for c in coder_consistency_rates.values()):

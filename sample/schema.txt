@@ -1,0 +1,26 @@
+# Sample Logistics Schema
+
+## Rules
+- Bare table names only (no database/schema prefix)
+- TASKS.EXECUTOR_ID links to ORGANIZATIONS.ID
+- Always filter _FIVETRAN_DELETED = FALSE
+- Date math: DATEADD('unit', n, CURRENT_DATE())
+- Division: SUM(x)::FLOAT / NULLIF(COUNT(*), 0)
+- Org lookup: ILIKE '%name%'
+
+## Tables
+
+ORGANIZATIONS: ID, NAME, TIMEZONE, _FIVETRAN_DELETED
+
+TASKS: ID, EXECUTOR_ID (→ ORGANIZATIONS.ID),
+       COMPLETING_WORKER_ID (→ WORKERS.ID, nullable),
+       COMPLETION_DETAILS_SUCCESS (BOOLEAN),
+       COMPLETION_DETAILS_TIME (TIMESTAMP),
+       COMPLETION_DETAILS_FAILURE_REASON (VARCHAR, nullable),
+       COMPLETE_BEFORE (TIMESTAMP, nullable),
+       _FIVETRAN_DELETED
+
+WORKERS: ID, NAME (nullable), ORGANIZATION_ID (→ ORGANIZATIONS.ID),
+         JOIN via TASKS.COMPLETING_WORKER_ID = WORKERS.ID,
+         use LEFT JOIN + COALESCE(w.NAME, 'Unknown'),
+         _FIVETRAN_DELETED

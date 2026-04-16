@@ -22,6 +22,7 @@ from critique.analysis import (
     analyze_coder_inconsistency,
     analyze_critic_inconsistency,
     analyze_critic_quality_on_corruption,
+    analyze_ground_truth_acceptance,
     print_final_report,
 )
 from critique.corruptor import corrupt_sql
@@ -98,6 +99,16 @@ def main() -> None:
             if coder_response.error:
                 print(f"  Error: {coder_response.error}")
 
+    # Inject ground truth SQL as an additional "coder" when the test case provides it.
+    # Ground truth runs once (n=1) regardless of --iterations and never gets corrupted —
+    # its purpose is measuring false positive rate: critics should always say SATISFACTORY.
+    if testcase.ground_truth_sql:
+        coder_outputs["ground_truth"] = [testcase.ground_truth_sql]
+        critic_provs = sorted(set(p[1] for p in pairs))
+        for cp in critic_provs:
+            pairs = pairs + [("ground_truth", cp)]  # type: ignore[list-item]
+        print(f"\n--- Coder: ground_truth (verified SQL, {len(testcase.ground_truth_sql)} chars) ---")
+
     # Phase 2: Run all critics on the coder outputs
     print("\n" + "=" * 80)
     print("PHASE 2: Code Critique")
@@ -105,6 +116,17 @@ def main() -> None:
 
     for coder_prov, critic_prov in pairs:
         for coder_run_idx, code_output in enumerate(coder_outputs[coder_prov]):
+            # Apply corruption once per coder output so all critic runs evaluate identical code.
+            # Moving this outside the critic_run loop ensures the RNG advances once per coder
+            # output, not once per critic run — preventing spurious inconsistency false-positives.
+            # Never corrupt ground truth — its purpose is measuring false positive rate.
+            critic_code_input = code_output
+            if coder_prov == "ground_truth":
+                print(f"\n[GROUND TRUTH — no corruption applied]")
+            elif args.corrupt and corruption_rng:
+                critic_code_input = corrupt_sql(code_output, args.corrupt, corruption_rng)
+                print(f"\n[CORRUPTED with {args.corrupt} error (seed={args.seed})]")
+
             for critic_run_idx in range(args.iterations):
                 ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                 pair_name = f"{coder_prov}_coder_{critic_prov}_critic"
@@ -118,13 +140,6 @@ def main() -> None:
                     if args.iterations > 1:
                         print(f"  Critic run {critic_run_idx + 1}/{args.iterations}")
                     print(f"{'#' * 60}")
-
-                # Apply corruption if requested
-                critic_code_input = code_output
-                if args.corrupt and corruption_rng:
-                    critic_code_input = corrupt_sql(code_output, args.corrupt, corruption_rng)
-                    if critic_run_idx == 0:  # Print corruption notice once per coder output
-                        print(f"\n[CORRUPTED with {args.corrupt} error (seed={args.seed})]")
 
                 # Run critic on the coder's output
                 _, critic_runner = create_runner("gpt", critic_prov)  # coder provider doesn't matter
@@ -145,7 +160,7 @@ def main() -> None:
                     testcase=args.testcase,
                     coder_provider=coder_prov,
                     critic_provider=critic_prov,
-                    coder_model=DEFAULT_MODELS[coder_prov],
+                    coder_model=DEFAULT_MODELS.get(coder_prov, "ground_truth"),
                     critic_model=DEFAULT_MODELS[critic_prov],
                     wall_time_seconds=critic_response.duration_seconds,
                     critic_response=critic_response,
@@ -179,9 +194,9 @@ def main() -> None:
                     "error": record.error,
                     "coder_run": coder_run_idx,
                     "critic_run": critic_run_idx,
-                    "corrupted": args.corrupt is not None,
-                    "corruption_type": args.corrupt,
-                    "corruption_seed": args.seed if args.corrupt else None,
+                    "corrupted": args.corrupt is not None and coder_prov != "ground_truth",
+                    "corruption_type": args.corrupt if coder_prov != "ground_truth" else None,
+                    "corruption_seed": args.seed if args.corrupt and coder_prov != "ground_truth" else None,
                 }
                 if critic_response:
                     record_dict["critic"] = {
@@ -241,6 +256,10 @@ def main() -> None:
         # Print corruption quality analysis if applicable
         if args.corrupt:
             analyze_critic_quality_on_corruption(output_root_path, args.testcase)
+
+        # Print ground truth false positive analysis if applicable
+        if testcase.ground_truth_sql:
+            analyze_ground_truth_acceptance(output_root_path, args.testcase)
 
         # Print final comprehensive report
         print_final_report(output_root_path, args.testcase)

@@ -1,0 +1,5285 @@
+ for tc in gt_weekly_success gt_failure_breakdown gt_delay_buckets gt_worker_leaderboard gt_daily_volume_trend; do
+    rm -rf output/$tc && ./run.sh --testcase $tc -n 3 --corrupt random
+  done
+
+================================================================================
+PHASE 1: Code Generation
+================================================================================
+
+--- Coder: claude ---
+  Run 1/3
+  Tokens: 816 | Time: 4.88s
+  Run 2/3
+  Tokens: 816 | Time: 10.80s
+  Run 3/3
+  Tokens: 812 | Time: 4.42s
+
+--- Coder: gpt ---
+  Run 1/3
+  Tokens: 668 | Time: 5.19s
+  Run 2/3
+  Tokens: 641 | Time: 3.11s
+  Run 3/3
+  Tokens: 629 | Time: 5.24s
+
+--- Coder: ground_truth (verified SQL, 854 chars) ---
+
+================================================================================
+PHASE 2: Code Critique
+================================================================================
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 718 | Time: 3.01s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly joins and
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 723 | Time: 3.60s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly filters b
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 726 | Time: 3.12s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly filters b
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 720 | Time: 2.56s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 720 | Time: 2.35s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 713 | Time: 2.54s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 716 | Time: 2.87s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 709 | Time: 2.67s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 709 | Time: 2.52s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 561 | Time: 2.09s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 560 | Time: 1.64s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 560 | Time: 2.04s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 560 | Time: 1.67s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 559 | Time: 2.15s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Query follows schema rules an
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 559 | Time: 2.18s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Query follows schema rules an
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 559 | Time: 3.46s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses invalid join key t.CRE
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 564 | Time: 1.90s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 561 | Time: 2.19s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 731 | Time: 2.66s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 727 | Time: 2.34s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 727 | Time: 2.30s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 692 | Time: 2.71s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 692 | Time: 2.83s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 692 | Time: 2.57s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 668 | Time: 2.32s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly applies a
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 673 | Time: 2.80s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly aggregate
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 674 | Time: 2.56s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly applies a
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 582 | Time: 2.48s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 586 | Time: 1.98s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins on t.CREATOR_ID, b
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 586 | Time: 2.30s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins on t.CREATOR_ID, b
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 547 | Time: 1.71s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 552 | Time: 1.77s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 547 | Time: 1.85s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 541 | Time: 1.78s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 534 | Time: 1.91s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 535 | Time: 1.77s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 711 | Time: 3.21s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly applies a
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 711 | Time: 3.22s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly applies a
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 709 | Time: 3.06s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: All schema rules are followed
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 561 | Time: 3.66s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 561 | Time: 1.70s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 561 | Time: 1.74s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 718 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.6s
+Critic [✓]: 723 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.1s
+Critic [✓]: 726 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 720 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.4s
+Critic [✓]: 720 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 713 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 716 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 709 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 709 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 561 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.6s
+Critic [✓]: 560 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 560 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 560 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 559 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 559 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.5s
+Critic [✓]: 559 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 564 tokens
+
+Test: gt_weekly_success
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 561 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 731 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.3s
+Critic [✓]: 727 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.3s
+Critic [✓]: 727 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 692 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 692 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 692 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.3s
+Critic [✓]: 668 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 673 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 674 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.5s
+Critic [✓]: 582 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 586 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.3s
+Critic [✓]: 586 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 547 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 552 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 547 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 541 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 534 tokens
+
+Test: gt_weekly_success
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 535 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 711 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 711 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.1s
+Critic [✓]: 709 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 3.7s
+Critic [✓]: 561 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 561 tokens
+
+Test: gt_weekly_success
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 561 tokens
+
+
+================================================================================
+DISAGREEMENT MATRIX
+================================================================================
+
+Coder      |        claude        |         gpt
+----------------------------------------------------------
+claude     | positive ✓  0  issues |  mixed   ~  0  issues
+gpt        | positive ✓  0  issues | positive ✓  0  issues
+ground_truth | positive ✓  0  issues | positive ✓  0  issues
+
+================================================================================
+CRITIC AGREEMENT ANALYSIS
+================================================================================
+
+CodeName: CLAUDE
+----------------------------------------
+  ✗ Critics DISAGREE: claude=positive, gpt=mixed
+
+CodeName: GPT
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+CodeName: GROUND_TRUTH
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+================================================================================
+
+================================================================================
+CODER INCONSISTENCY ANALYSIS
+================================================================================
+
+GPT
+----------------------------------------
+  Run 1 vs Run 2: 32.63% similar
+  Run 1 vs Run 3: 21.86% similar
+  Run 2 vs Run 3: 89.97% similar
+
+  Average similarity: 48.16%
+  Inconsistency rate: 51.84%
+
+CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: 100.00% similar
+  Run 1 vs Run 3: 99.50% similar
+  Run 2 vs Run 3: 99.50% similar
+
+  Average similarity: 99.67%
+  Inconsistency rate: 0.33%
+
+================================================================================
+CRITIC INCONSISTENCY ANALYSIS
+================================================================================
+
+CLAUDE → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs positive
+  Run 2 vs Run 3: mixed vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs positive
+  Run 1 vs Run 3: mixed vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+CLAUDE → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → GPT
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+================================================================================
+
+================================================================================
+CRITIC QUALITY ON CORRUPTED CODE
+================================================================================
+
+(Accepting corrupted code = poor quality critic)
+
+
+CLAUDE Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+GPT Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+================================================================================
+
+================================================================================
+GROUND TRUTH FALSE POSITIVE ANALYSIS
+================================================================================
+
+(Rejecting ground truth SQL = false positive — critic penalizing correct code)
+
+  CLAUDE critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  GPT critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  All critics correctly accepted ground truth SQL — no false positives.
+
+================================================================================
+
+
+================================================================================
+|                                                                              |
+|                           FINAL EVALUATION REPORT                            |
+|                                                                              |
+================================================================================
+
+| KEY METRICS ------------------------------------------------------------------
+|
+| Metric                Value    Sample    Status
+| Critic Agreement      85.7%    6/7       CONSISTENT
+| GPT Code              48.2%    3 runs    UNSTABLE
+| CLAUDE Code           99.7%    3 runs    STABLE
+| Avg Code Consistency  73.9%              VARIABLE
+| GPT→GPT               100.0%   9 evals   RELIABLE
+| GPT→CLAUDE            100.0%   9 evals   RELIABLE
+| CLAUDE→GPT            100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→GPT      100.0%   3 evals   RELIABLE
+| CLAUDE→CLAUDE         100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→CLAUDE   100.0%   3 evals   RELIABLE
+|
+
+| RECOMMENDATIONS --------------------------------------------------------------
+|
+| 1. Coders show high variability - use multiple runs for robustness
+|
+================================================================================
+
+
+================================================================================
+PHASE 1: Code Generation
+================================================================================
+
+--- Coder: claude ---
+  Run 1/3
+  Tokens: 732 | Time: 3.95s
+  Run 2/3
+  Tokens: 726 | Time: 3.82s
+  Run 3/3
+  Tokens: 726 | Time: 3.39s
+
+--- Coder: gpt ---
+  Run 1/3
+  Tokens: 567 | Time: 3.02s
+  Run 2/3
+  Tokens: 585 | Time: 2.93s
+  Run 3/3
+  Tokens: 583 | Time: 2.67s
+
+--- Coder: ground_truth (verified SQL, 595 chars) ---
+
+================================================================================
+PHASE 2: Code Critique
+================================================================================
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 639 | Time: 2.91s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 637 | Time: 3.63s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 629 | Time: 2.78s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 620 | Time: 2.52s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 620 | Time: 2.72s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 623 | Time: 2.66s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 623 | Time: 2.69s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 630 | Time: 2.62s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 626 | Time: 2.78s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 515 | Time: 3.27s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly filters non-deleted
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 512 | Time: 1.74s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules a
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 511 | Time: 1.98s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 494 | Time: 3.25s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Meets schema rules and correc
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 499 | Time: 3.52s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correct joins, filters delete
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 499 | Time: 1.88s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correct joins, deletion filte
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 509 | Time: 2.26s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 500 | Time: 2.23s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses the wrong join key (CR
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 500 | Time: 2.22s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses the wrong join key (CR
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 589 | Time: 4.09s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 599 | Time: 2.46s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 594 | Time: 3.49s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 623 | Time: 2.82s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 623 | Time: 3.00s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 623 | Time: 2.65s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 624 | Time: 2.71s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 616 | Time: 4.39s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 611 | Time: 2.91s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 487 | Time: 2.21s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins on the wrong key b
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 485 | Time: 3.31s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins on t.CREATOR_ID in
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 482 | Time: 1.96s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 500 | Time: 1.80s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 497 | Time: 1.74s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 501 | Time: 1.98s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 498 | Time: 1.82s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correct joins, filters delete
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 499 | Time: 1.92s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correct joins, filters delete
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 499 | Time: 1.80s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 621 | Time: 3.00s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters f
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 617 | Time: 3.46s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 617 | Time: 2.98s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 502 | Time: 1.86s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 497 | Time: 1.97s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules a
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 491 | Time: 1.71s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules a
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 639 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.6s
+Critic [✓]: 637 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 629 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 620 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 620 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 623 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 623 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 630 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 626 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.3s
+Critic [✓]: 515 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 512 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 511 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.3s
+Critic [✓]: 494 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.5s
+Critic [✓]: 499 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 499 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.3s
+Critic [✓]: 509 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 500 tokens
+
+Test: gt_failure_breakdown
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 500 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 4.1s
+Critic [✓]: 589 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 599 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.5s
+Critic [✓]: 594 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 623 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 623 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 623 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 624 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 4.4s
+Critic [✓]: 616 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 611 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 487 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 3.3s
+Critic [✓]: 485 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 482 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 500 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 497 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 501 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 498 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 499 tokens
+
+Test: gt_failure_breakdown
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 499 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 621 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.5s
+Critic [✓]: 617 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 617 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.9s
+Critic [✓]: 502 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 2.0s
+Critic [✓]: 497 tokens
+
+Test: gt_failure_breakdown
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 491 tokens
+
+
+================================================================================
+DISAGREEMENT MATRIX
+================================================================================
+
+Coder      |        claude        |         gpt
+----------------------------------------------------------
+claude     |  mixed   ~  0  issues | negative ✗  1  issues
+gpt        | positive ✓  0  issues | positive ✓  0  issues
+ground_truth | positive ✓  0  issues | positive ✓  0  issues
+
+================================================================================
+CRITIC AGREEMENT ANALYSIS
+================================================================================
+
+CodeName: CLAUDE
+----------------------------------------
+  ✗ Critics DISAGREE: claude=mixed, gpt=negative
+
+CodeName: GPT
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+CodeName: GROUND_TRUTH
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+================================================================================
+
+================================================================================
+CODER INCONSISTENCY ANALYSIS
+================================================================================
+
+GPT
+----------------------------------------
+  Run 1 vs Run 2: 18.43% similar
+  Run 1 vs Run 3: 78.47% similar
+  Run 2 vs Run 3: 68.77% similar
+
+  Average similarity: 55.22%
+  Inconsistency rate: 44.78%
+
+CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: 99.19% similar
+  Run 1 vs Run 3: 91.45% similar
+  Run 2 vs Run 3: 92.20% similar
+
+  Average similarity: 94.28%
+  Inconsistency rate: 5.72%
+
+================================================================================
+CRITIC INCONSISTENCY ANALYSIS
+================================================================================
+
+CLAUDE → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs mixed
+  Run 1 vs Run 3: positive vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+CLAUDE → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: negative vs negative
+  Run 1 vs Run 3: negative vs negative
+  Run 2 vs Run 3: negative vs negative
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs mixed
+  Run 2 vs Run 3: positive vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: negative vs mixed
+  Run 1 vs Run 3: negative vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → GPT
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+================================================================================
+
+================================================================================
+CRITIC QUALITY ON CORRUPTED CODE
+================================================================================
+
+(Accepting corrupted code = poor quality critic)
+
+
+CLAUDE Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+GPT Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+================================================================================
+
+================================================================================
+GROUND TRUTH FALSE POSITIVE ANALYSIS
+================================================================================
+
+(Rejecting ground truth SQL = false positive — critic penalizing correct code)
+
+  CLAUDE critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  GPT critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  All critics correctly accepted ground truth SQL — no false positives.
+
+================================================================================
+
+
+================================================================================
+|                                                                              |
+|                           FINAL EVALUATION REPORT                            |
+|                                                                              |
+================================================================================
+
+| KEY METRICS ------------------------------------------------------------------
+|
+| Metric                Value    Sample    Status
+| Critic Agreement      71.4%    5/7       MODERATE
+| GPT Code              55.2%    3 runs    UNSTABLE
+| CLAUDE Code           94.3%    3 runs    STABLE
+| Avg Code Consistency  74.8%              VARIABLE
+| GPT→GPT               100.0%   9 evals   RELIABLE
+| GPT→CLAUDE            100.0%   9 evals   RELIABLE
+| CLAUDE→GPT            100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→GPT      100.0%   3 evals   RELIABLE
+| CLAUDE→CLAUDE         100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→CLAUDE   100.0%   3 evals   RELIABLE
+|
+
+| RECOMMENDATIONS --------------------------------------------------------------
+|
+| 1. Coders show high variability - use multiple runs for robustness
+|
+================================================================================
+
+
+================================================================================
+PHASE 1: Code Generation
+================================================================================
+
+--- Coder: claude ---
+  Run 1/3
+  Tokens: 1046 | Time: 6.30s
+  Run 2/3
+  Tokens: 1048 | Time: 5.83s
+  Run 3/3
+  Tokens: 1052 | Time: 5.97s
+
+--- Coder: gpt ---
+  Run 1/3
+  Tokens: 794 | Time: 5.37s
+  Run 2/3
+  Tokens: 861 | Time: 5.32s
+  Run 3/3
+  Tokens: 863 | Time: 5.63s
+
+--- Coder: ground_truth (verified SQL, 1440 chars) ---
+
+================================================================================
+PHASE 2: Code Critique
+================================================================================
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 919 | Time: 2.79s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: Correctly buckets task latene
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 919 | Time: 3.20s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: Correctly buckets task latene
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 921 | Time: 2.68s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 919 | Time: 2.53s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 919 | Time: 2.22s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 919 | Time: 2.31s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 931 | Time: 2.65s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 922 | Time: 2.80s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 923 | Time: 3.01s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 721 | Time: 1.93s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 718 | Time: 1.64s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 718 | Time: 1.67s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 718 | Time: 1.75s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed n
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 720 | Time: 1.78s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 721 | Time: 2.06s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 724 | Time: 2.14s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed s
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 723 | Time: 1.82s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 727 | Time: 2.58s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 870 | Time: 2.47s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 879 | Time: 2.63s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 868 | Time: 2.45s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 959 | Time: 2.84s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 978 | Time: 3.21s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 964 | Time: 2.98s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 969 | Time: 2.91s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 964 | Time: 2.78s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 967 | Time: 2.80s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 684 | Time: 2.11s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 680 | Time: 1.77s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 681 | Time: 1.76s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 750 | Time: 1.88s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 748 | Time: 1.70s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 749 | Time: 1.88s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 747 | Time: 1.75s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Meets the task requirements a
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 750 | Time: 3.26s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 750 | Time: 1.72s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets completed t
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 862 | Time: 2.64s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 862 | Time: 2.62s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 872 | Time: 3.06s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly buckets c
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 671 | Time: 1.73s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 670 | Time: 1.80s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Query follows schema rules an
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 670 | Time: 2.11s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Correctly buckets task delays
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 919 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 919 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 921 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 919 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.2s
+Critic [✓]: 919 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.3s
+Critic [✓]: 919 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 931 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 922 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 923 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 721 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.6s
+Critic [✓]: 718 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 718 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 718 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 720 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 721 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 724 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 723 tokens
+
+Test: gt_delay_buckets
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.6s
+Critic [✓]: 727 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 870 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 879 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 868 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 959 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 978 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 964 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 969 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 964 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 967 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 684 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 680 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 681 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 750 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 748 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 749 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 747 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 3.3s
+Critic [✓]: 750 tokens
+
+Test: gt_delay_buckets
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 750 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 862 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 862 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.1s
+Critic [✓]: 872 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 671 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.8s
+Critic [✓]: 670 tokens
+
+Test: gt_delay_buckets
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 2.1s
+Critic [✓]: 670 tokens
+
+
+================================================================================
+DISAGREEMENT MATRIX
+================================================================================
+
+Coder      |        claude        |         gpt
+----------------------------------------------------------
+claude     | positive ✓  0  issues | positive ✓  0  issues
+gpt        | positive ✓  0  issues | positive ✓  0  issues
+ground_truth | positive ✓  0  issues | positive ✓  0  issues
+
+================================================================================
+CRITIC AGREEMENT ANALYSIS
+================================================================================
+
+CodeName: CLAUDE
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+CodeName: GPT
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+CodeName: GROUND_TRUTH
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+================================================================================
+
+================================================================================
+CODER INCONSISTENCY ANALYSIS
+================================================================================
+
+GPT
+----------------------------------------
+  Run 1 vs Run 2: 67.25% similar
+  Run 1 vs Run 3: 75.89% similar
+  Run 2 vs Run 3: 92.97% similar
+
+  Average similarity: 78.70%
+  Inconsistency rate: 21.30%
+
+CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: 96.97% similar
+  Run 1 vs Run 3: 96.36% similar
+  Run 2 vs Run 3: 99.59% similar
+
+  Average similarity: 97.64%
+  Inconsistency rate: 2.36%
+
+================================================================================
+CRITIC INCONSISTENCY ANALYSIS
+================================================================================
+
+CLAUDE → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+CLAUDE → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs positive
+  Run 1 vs Run 3: mixed vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → GPT
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+================================================================================
+
+================================================================================
+CRITIC QUALITY ON CORRUPTED CODE
+================================================================================
+
+(Accepting corrupted code = poor quality critic)
+
+
+CLAUDE Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 100% accepted corrupted code 🚨 POOR
+  GPT: 100% accepted corrupted code 🚨 POOR
+
+GPT Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 100% accepted corrupted code 🚨 POOR
+  GPT: 100% accepted corrupted code 🚨 POOR
+
+================================================================================
+
+================================================================================
+GROUND TRUTH FALSE POSITIVE ANALYSIS
+================================================================================
+
+(Rejecting ground truth SQL = false positive — critic penalizing correct code)
+
+  CLAUDE critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  GPT critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  All critics correctly accepted ground truth SQL — no false positives.
+
+================================================================================
+
+
+================================================================================
+|                                                                              |
+|                           FINAL EVALUATION REPORT                            |
+|                                                                              |
+================================================================================
+
+| KEY METRICS ------------------------------------------------------------------
+|
+| Metric                Value    Sample    Status
+| Critic Agreement      85.7%    6/7       CONSISTENT
+| GPT Code              78.7%    3 runs    VARIABLE
+| CLAUDE Code           97.6%    3 runs    STABLE
+| Avg Code Consistency  88.2%              STABLE
+| GPT→GPT               100.0%   9 evals   RELIABLE
+| GPT→CLAUDE            100.0%   9 evals   RELIABLE
+| CLAUDE→GPT            100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→GPT      100.0%   3 evals   RELIABLE
+| CLAUDE→CLAUDE         100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→CLAUDE   100.0%   3 evals   RELIABLE
+|
+
+| RECOMMENDATIONS --------------------------------------------------------------
+|
+| 1. Both coders and critics show good consistency
+| 2. Results are reliable for decision-making
+|
+================================================================================
+
+
+================================================================================
+PHASE 1: Code Generation
+================================================================================
+
+--- Coder: claude ---
+  Run 1/3
+  Tokens: 803 | Time: 4.52s
+  Run 2/3
+  Tokens: 803 | Time: 3.65s
+  Run 3/3
+  Tokens: 803 | Time: 4.08s
+
+--- Coder: gpt ---
+  Run 1/3
+  Tokens: 656 | Time: 3.88s
+  Run 2/3
+  Tokens: 655 | Time: 3.54s
+  Run 3/3
+  Tokens: 655 | Time: 3.37s
+
+--- Coder: ground_truth (verified SQL, 770 chars) ---
+
+================================================================================
+PHASE 2: Code Critique
+================================================================================
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 685 | Time: 2.31s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly joins all
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 687 | Time: 2.55s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly joins all
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 685 | Time: 2.76s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly joins all
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 2.73s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 2.97s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 2.72s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 2.61s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 2.71s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 691 | Time: 4.55s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 553 | Time: 2.07s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows schema rules, uses th
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 550 | Time: 1.81s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 553 | Time: 1.87s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules, use
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 557 | Time: 2.09s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 553 | Time: 2.05s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules, use
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 554 | Time: 1.86s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 557 | Time: 1.92s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 559 | Time: 1.82s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 559 | Time: 1.90s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 3.72s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 2.60s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 3.56s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 2.50s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 2.63s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 692 | Time: 2.84s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 701 | Time: 3.25s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly follows a
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 714 | Time: 3.58s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: Grouping by `COALESCE(w.NAM
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 727 | Time: 3.39s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: Grouping by `COALESCE(w.NAM
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 554 | Time: 1.90s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins organizations on t
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 555 | Time: 1.76s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins organizations usin
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 555 | Time: 1.81s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 549 | Time: 1.89s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 552 | Time: 1.85s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema and requir
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 552 | Time: 1.88s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 549 | Time: 1.81s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 549 | Time: 1.79s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 547 | Time: 2.27s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 716 | Time: 3.20s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: All schema rules are correctl
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 706 | Time: 2.58s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly applies a
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 707 | Time: 2.86s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly follows a
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 558 | Time: 1.75s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules a
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 557 | Time: 1.69s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Uses correct joins, filters d
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 556 | Time: 3.24s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Query follows schema rules, u
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.3s
+Critic [✓]: 685 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 687 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 685 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 4.6s
+Critic [✓]: 691 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 553 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 550 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 553 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 557 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 553 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 554 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 557 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 559 tokens
+
+Test: gt_worker_leaderboard
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 559 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.7s
+Critic [✓]: 686 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 686 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.6s
+Critic [✓]: 686 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 686 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 686 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 692 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 701 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.6s
+Critic [✓]: 714 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.4s
+Critic [✓]: 727 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 554 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 555 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 555 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 549 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 552 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 552 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 549 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 549 tokens
+
+Test: gt_worker_leaderboard
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.3s
+Critic [✓]: 547 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.2s
+Critic [✓]: 716 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 706 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 707 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 558 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.7s
+Critic [✓]: 557 tokens
+
+Test: gt_worker_leaderboard
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 3.2s
+Critic [✓]: 556 tokens
+
+
+================================================================================
+DISAGREEMENT MATRIX
+================================================================================
+
+Coder      |        claude        |         gpt
+----------------------------------------------------------
+claude     |  mixed   ~  0  issues |  mixed   ~  0  issues
+gpt        |  mixed   ~  0  issues | positive ✓  0  issues
+ground_truth | positive ✓  0  issues | positive ✓  0  issues
+
+================================================================================
+CRITIC AGREEMENT ANALYSIS
+================================================================================
+
+CodeName: CLAUDE
+----------------------------------------
+  ✓ Both critics AGREE: mixed
+
+CodeName: GPT
+----------------------------------------
+  ✗ Critics DISAGREE: claude=mixed, gpt=positive
+
+CodeName: GROUND_TRUTH
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+================================================================================
+
+================================================================================
+CODER INCONSISTENCY ANALYSIS
+================================================================================
+
+GPT
+----------------------------------------
+  Run 1 vs Run 2: 98.08% similar
+  Run 1 vs Run 3: 98.08% similar
+  Run 2 vs Run 3: 100.00% similar
+
+  Average similarity: 98.72%
+  Inconsistency rate: 1.28%
+
+CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: 100.00% similar
+  Run 1 vs Run 3: 100.00% similar
+  Run 2 vs Run 3: 100.00% similar
+
+  Average similarity: 100.00%
+  Inconsistency rate: 0.00%
+
+================================================================================
+CRITIC INCONSISTENCY ANALYSIS
+================================================================================
+
+CLAUDE → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+CLAUDE → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: negative vs mixed
+  Run 1 vs Run 3: negative vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs mixed
+  Run 2 vs Run 3: positive vs mixed
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs mixed
+  Run 1 vs Run 3: positive vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → GPT
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+================================================================================
+
+================================================================================
+CRITIC QUALITY ON CORRUPTED CODE
+================================================================================
+
+(Accepting corrupted code = poor quality critic)
+
+
+CLAUDE Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+GPT Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 11% accepted corrupted code ✓ GOOD
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+================================================================================
+
+================================================================================
+GROUND TRUTH FALSE POSITIVE ANALYSIS
+================================================================================
+
+(Rejecting ground truth SQL = false positive — critic penalizing correct code)
+
+  CLAUDE critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  GPT critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  All critics correctly accepted ground truth SQL — no false positives.
+
+================================================================================
+
+
+================================================================================
+|                                                                              |
+|                           FINAL EVALUATION REPORT                            |
+|                                                                              |
+================================================================================
+
+| KEY METRICS ------------------------------------------------------------------
+|
+| Metric                Value    Sample    Status
+| Critic Agreement      57.1%    4/7       MODERATE
+| GPT Code              98.7%    3 runs    STABLE
+| CLAUDE Code           100.0%   3 runs    STABLE
+| Avg Code Consistency  99.4%              STABLE
+| GPT→GPT               100.0%   9 evals   RELIABLE
+| GPT→CLAUDE            100.0%   9 evals   RELIABLE
+| CLAUDE→GPT            100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→GPT      100.0%   3 evals   RELIABLE
+| CLAUDE→CLAUDE         100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→CLAUDE   100.0%   3 evals   RELIABLE
+|
+
+| RECOMMENDATIONS --------------------------------------------------------------
+|
+| 1. Both coders and critics show good consistency
+| 2. Results are reliable for decision-making
+|
+================================================================================
+
+
+================================================================================
+PHASE 1: Code Generation
+================================================================================
+
+--- Coder: claude ---
+  Run 1/3
+  Tokens: 794 | Time: 5.76s
+  Run 2/3
+  Tokens: 794 | Time: 3.94s
+  Run 3/3
+  Tokens: 800 | Time: 8.20s
+
+--- Coder: gpt ---
+  Run 1/3
+  Tokens: 630 | Time: 3.82s
+  Run 2/3
+  Tokens: 634 | Time: 3.24s
+  Run 3/3
+  Tokens: 637 | Time: 3.21s
+
+--- Coder: ground_truth (verified SQL, 826 chars) ---
+
+================================================================================
+PHASE 2: Code Critique
+================================================================================
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 678 | Time: 2.69s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly aggregate
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 677 | Time: 2.52s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly aggregate
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 678 | Time: 2.49s
+
+============================================================
+Coder: claude | Critic: claude | SATISFACTORY
+Reason: The query correctly aggregate
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 676 | Time: 2.60s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 676 | Time: 2.71s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 676 | Time: 2.17s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 2.86s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 682 | Time: 2.92s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: claude → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 682 | Time: 2.78s
+
+============================================================
+Coder: claude | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 540 | Time: 1.79s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 538 | Time: 3.27s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows schema rules and corr
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 538 | Time: 1.76s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows schema rules, filters
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 537 | Time: 2.05s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 535 | Time: 3.35s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules a
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 539 | Time: 1.86s
+
+============================================================
+Coder: claude | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 548 | Time: 1.79s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 548 | Time: 1.80s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+############################################################
+  Coder: claude → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 548 | Time: 1.57s
+
+============================================================
+Coder: claude | Critic: gpt | UNSATISFACTORY
+Reason: Uses TASKS.CREATOR_ID inste
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 659 | Time: 2.58s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 659 | Time: 3.78s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 659 | Time: 2.65s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 667 | Time: 2.10s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The join uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 667 | Time: 2.22s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 667 | Time: 2.38s
+
+============================================================
+Coder: gpt | Critic: claude | UNSATISFACTORY
+Reason: The JOIN uses `t.CREATOR_ID
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 664 | Time: 2.68s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 664 | Time: 3.10s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+############################################################
+  Coder: gpt → Critic: claude
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 667 | Time: 2.72s
+
+============================================================
+Coder: gpt | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 529 | Time: 2.06s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 529 | Time: 2.03s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 1/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 529 | Time: 1.82s
+
+============================================================
+Coder: gpt | Critic: gpt | UNSATISFACTORY
+Reason: It joins TASKS to ORGANIZAT
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 529 | Time: 1.77s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 539 | Time: 1.92s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 2/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 529 | Time: 1.85s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Query follows the schema rule
+
+[CORRUPTED with random error (seed=42)]
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 538 | Time: 2.13s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: It follows the schema rules,
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 537 | Time: 2.23s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Correctly filters non-deleted
+
+############################################################
+  Coder: gpt → Critic: gpt
+  Coder run 3/3
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 534 | Time: 1.74s
+
+============================================================
+Coder: gpt | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 1/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 692 | Time: 3.06s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters b
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 2/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 687 | Time: 3.00s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+############################################################
+  Coder: ground_truth → Critic: claude
+  Critic run 3/3
+############################################################
+
+--- Critic: claude (claude-sonnet-4-6) ---
+Tokens: 686 | Time: 3.38s
+
+============================================================
+Coder: ground_truth | Critic: claude | SATISFACTORY
+Reason: The query correctly filters d
+
+[GROUND TRUTH — no corruption applied]
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 1/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 537 | Time: 2.46s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 2/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 540 | Time: 1.88s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+############################################################
+  Coder: ground_truth → Critic: gpt
+  Critic run 3/3
+############################################################
+
+--- Critic: gpt (gpt-5.4) ---
+Tokens: 538 | Time: 1.87s
+
+============================================================
+Coder: ground_truth | Critic: gpt | SATISFACTORY
+Reason: Follows the schema rules and
+
+====================================================================================================
+SUMMARY
+====================================================================================================
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 678 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 677 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.5s
+Critic [✓]: 678 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 676 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 676 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.2s
+Critic [✓]: 676 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 686 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.9s
+Critic [✓]: 682 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + claude (critic)
+Models: claude-sonnet-4-6 / claude-sonnet-4-6
+Time: 2.8s
+Critic [✓]: 682 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 540 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.3s
+Critic [✓]: 538 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 538 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 537 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 3.4s
+Critic [✓]: 535 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 539 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 548 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 548 tokens
+
+Test: gt_daily_volume_trend
+Pair: claude (coder) + gpt (critic)
+Models: claude-sonnet-4-6 / gpt-5.4
+Time: 1.6s
+Critic [✓]: 548 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 659 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.8s
+Critic [✓]: 659 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.6s
+Critic [✓]: 659 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.1s
+Critic [✓]: 667 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.2s
+Critic [✓]: 667 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.4s
+Critic [✓]: 667 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 664 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 3.1s
+Critic [✓]: 664 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + claude (critic)
+Models: gpt-5.4 / claude-sonnet-4-6
+Time: 2.7s
+Critic [✓]: 667 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 529 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.0s
+Critic [✓]: 529 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 529 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.8s
+Critic [✓]: 529 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 539 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.9s
+Critic [✓]: 529 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.1s
+Critic [✓]: 538 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 2.2s
+Critic [✓]: 537 tokens
+
+Test: gt_daily_volume_trend
+Pair: gpt (coder) + gpt (critic)
+Models: gpt-5.4 / gpt-5.4
+Time: 1.7s
+Critic [✓]: 534 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.1s
+Critic [✓]: 692 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.0s
+Critic [✓]: 687 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + claude (critic)
+Models: ground_truth / claude-sonnet-4-6
+Time: 3.4s
+Critic [✓]: 686 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 2.5s
+Critic [✓]: 537 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.9s
+Critic [✓]: 540 tokens
+
+Test: gt_daily_volume_trend
+Pair: ground_truth (coder) + gpt (critic)
+Models: ground_truth / gpt-5.4
+Time: 1.9s
+Critic [✓]: 538 tokens
+
+
+================================================================================
+DISAGREEMENT MATRIX
+================================================================================
+
+Coder      |        claude        |         gpt
+----------------------------------------------------------
+claude     | positive ✓  0  issues |  mixed   ~  0  issues
+gpt        | positive ✓  0  issues | positive ✓  0  issues
+ground_truth | positive ✓  0  issues | positive ✓  0  issues
+
+================================================================================
+CRITIC AGREEMENT ANALYSIS
+================================================================================
+
+CodeName: CLAUDE
+----------------------------------------
+  ✗ Critics DISAGREE: claude=positive, gpt=mixed
+
+CodeName: GPT
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+CodeName: GROUND_TRUTH
+----------------------------------------
+  ✓ Both critics AGREE: positive
+
+================================================================================
+
+================================================================================
+CODER INCONSISTENCY ANALYSIS
+================================================================================
+
+GPT
+----------------------------------------
+  Run 1 vs Run 2: 97.44% similar
+  Run 1 vs Run 3: 97.30% similar
+  Run 2 vs Run 3: 95.62% similar
+
+  Average similarity: 96.79%
+  Inconsistency rate: 3.21%
+
+CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: 100.00% similar
+  Run 1 vs Run 3: 89.29% similar
+  Run 2 vs Run 3: 89.29% similar
+
+  Average similarity: 92.86%
+  Inconsistency rate: 7.14%
+
+================================================================================
+CRITIC INCONSISTENCY ANALYSIS
+================================================================================
+
+CLAUDE → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs positive
+  Run 1 vs Run 3: mixed vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+CLAUDE → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → CLAUDE
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GPT → GPT
+----------------------------------------
+  [Coder run 1]
+  Run 1 vs Run 2: mixed vs mixed
+  Run 1 vs Run 3: mixed vs mixed
+  Run 2 vs Run 3: mixed vs mixed
+  [Coder run 2]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+  [Coder run 3]
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → CLAUDE
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+GROUND_TRUTH → GPT
+----------------------------------------
+  Run 1 vs Run 2: positive vs positive
+  Run 1 vs Run 3: positive vs positive
+  Run 2 vs Run 3: positive vs positive
+
+  Flip rate: 0.00%
+  Consistency: 100.00%
+
+================================================================================
+
+================================================================================
+CRITIC QUALITY ON CORRUPTED CODE
+================================================================================
+
+(Accepting corrupted code = poor quality critic)
+
+
+CLAUDE Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+GPT Coder - Corruption Acceptance Rates:
+--------------------------------------------------
+  CLAUDE: 33% accepted corrupted code ⚠️  WEAK
+  GPT: 67% accepted corrupted code 🚨 POOR
+
+================================================================================
+
+================================================================================
+GROUND TRUTH FALSE POSITIVE ANALYSIS
+================================================================================
+
+(Rejecting ground truth SQL = false positive — critic penalizing correct code)
+
+  CLAUDE critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  GPT critic: accepted 3/3 — false positive rate 0%  ✓ CLEAN
+  All critics correctly accepted ground truth SQL — no false positives.
+
+================================================================================
+
+
+================================================================================
+|                                                                              |
+|                           FINAL EVALUATION REPORT                            |
+|                                                                              |
+================================================================================
+
+| KEY METRICS ------------------------------------------------------------------
+|
+| Metric                Value    Sample    Status
+| Critic Agreement      85.7%    6/7       CONSISTENT
+| GPT Code              96.8%    3 runs    STABLE
+| CLAUDE Code           92.9%    3 runs    STABLE
+| Avg Code Consistency  94.8%              STABLE
+| GPT→GPT               100.0%   9 evals   RELIABLE
+| GPT→CLAUDE            100.0%   9 evals   RELIABLE
+| CLAUDE→GPT            100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→GPT      100.0%   3 evals   RELIABLE
+| CLAUDE→CLAUDE         100.0%   9 evals   RELIABLE
+| GROUND_TRUTH→CLAUDE   100.0%   3 evals   RELIABLE
+|
+
+| RECOMMENDATIONS --------------------------------------------------------------
+|
+| 1. Both coders and critics show good consistency
+| 2. Results are reliable for decision-making
+|
+================================================================================
